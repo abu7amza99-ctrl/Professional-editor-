@@ -1,0 +1,69 @@
+:root{
+  --topbar:#2F6FD6;
+  --accent:#2F6FD6;
+  --bg:#f7f7f8;
+  --panel:#fff;
+  --toolbar-height:92px;
+  --radius:10px;
+  --shadow: 0 6px 20px rgba(0,0,0,0.08);
+}
+
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;font-family: 'Roboto', system-ui, -apple-system, 'Segoe UI', Arial;direction:rtl}
+body{background:var(--bg);display:flex;flex-direction:column;align-items:stretch}
+
+/* شريط علوي */
+.topbar{height:56px;background:var(--topbar);color:#fff;display:flex;align-items:center;padding:0 12px;justify-content:space-between}
+.topbar .brand{font-weight:700}
+.icon-btn{background:transparent;border:0;color:#fff;padding:8px;border-radius:8px;font-size:18px;cursor:pointer}
+
+/* الحاوية الرئيسية */
+.container{padding:16px;flex:1;overflow:auto}
+.preview-wrap{background:var(--panel);padding:12px;border-radius:8px;box-shadow:var(--shadow)}
+.preview{height:62vh;border-radius:6px;background:linear-gradient(180deg,#e2efc0,#3c5f60);border:1px solid #eee;position:relative;overflow:hidden}
+.canvas{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+
+/* العناصر (نص/صورة) داخل المعاينة */
+.element{position:absolute;touch-action:none;display:inline-block;cursor:grab;user-select:none}
+.element .editable{outline:none;white-space:pre-wrap}
+.element .resize-handle{position:absolute;width:18px;height:18px;border-radius:4px;background:rgba(0,0,0,0.6);right:-9px;bottom:-9px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:10px}
+
+/* شريط الأدوات السفلي */
+.bottom-toolbar{height:var(--toolbar-height);background:transparent;padding:8px 8px;border-top:1px solid rgba(0,0,0,0.04)}
+.tool-scroll{overflow-x:auto;display:flex;gap:12px;padding:6px 12px;align-items:center}
+.tool-item{min-width:68px;background:#fff;border-radius:14px;padding:10px;display:flex;flex-direction:column;align-items:center;gap:6px;box-shadow:0 4px 10px rgba(0,0,0,0.06);font-size:12px;cursor:pointer}
+
+/* اللوحات الجانبية (modals) */
+.panel{position:fixed;left:50%;top:8%;transform:translateX(-50%);min-width:320px;background:var(--panel);z-index:999;box-shadow:var(--shadow);border-radius:10px;padding:8px;display:none;max-height:84vh;overflow:auto}
+.panel header{display:flex;align-items:center;justify-content:space-between;padding:6px 8px;border-bottom:1px solid #f1f1f1}
+.panel .panel-body{padding:8px}
+.panel.visible{display:block}
+.panel .close{background:transparent;border:0;cursor:pointer;font-size:18px}
+
+/* أزرار ونماذج داخل اللوحات */
+.row{display:flex;gap:8px;align-items:center;margin:8px 0}
+.btn{padding:8px 12px;border-radius:8px;border:0;cursor:pointer;background:#f0f0f0}
+.btn.primary{background:var(--accent);color:#fff}
+.btn.secondary{background:#eee}
+input[type="range"]{width:100%}
+input[type="text"], input[type="color"], select, input[type="file"]{padding:8px;border-radius:8px;border:1px solid #eee}
+
+/* ألوان وتدرجات */
+.color-grid{display:grid;grid-template-columns:repeat(8,1fr);gap:6px}
+.color-swatch{width:100%;padding-top:100%;border-radius:6px;position:relative;overflow:hidden}
+.color-swatch button{position:absolute;inset:0;border:0;background:transparent;cursor:pointer}
+
+/* تدرجات */
+.grad-list{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.grad-item{height:56px;border-radius:8px;position:relative;overflow:hidden}
+.grad-item button{position:absolute;inset:0;border:0;background:transparent;cursor:pointer}
+
+/* قائمة المشاريع */
+#project-list{display:flex;flex-direction:column;gap:8px}
+.project-item{display:flex;justify-content:space-between;align-items:center;padding:8px;border-radius:8px;background:#fafafa}
+
+/* responsive */
+@media (max-width:700px){
+  .tool-item{min-width:84px}
+  .preview{height:56vh}
+}

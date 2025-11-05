@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover" />
+  <title>محرر الصور والنصوص - نهائي</title>
+
+  <!-- تحميل كثير من خطوط Google (50 خط افتراضي) -->
+  <link href="https://fonts.googleapis.com/css2?
+    family=Roboto:wght@300;400;700&
+    family=Open+Sans:wght@300;400;700&
+    family=Lato:wght@300;400;700&
+    family=Montserrat:wght@300;400;700&
+    family=Poppins:wght@300;400;700&
+    family=Raleway:wght@300;400;700&
+    family=Oswald:wght@300;400;700&
+    family=Playfair+Display:wght@400;700&
+    family=Merriweather:wght@300;400;700&
+    family=Nunito:wght@300;400;700&
+    family=Rubik:wght@300;400;700&
+    family=Ubuntu:wght@300;400;700&
+    family=PT+Sans:wght@400;700&
+    family=Quicksand:wght@300;400;700&
+    family=Noto+Sans:wght@300;400;700&
+    family=Source+Sans+3:wght@300;400;700&
+    family=Work+Sans:wght@300;400;700&
+    family=Archivo:wght@300;400;700&
+    family=Karla:wght@300;400;700&
+    family=Inter:wght@300;400;700&
+    family=Fira+Sans:wght@300;400;700&
+    family=Mulish:wght@300;400;700&
+    family=Alegreya:wght@300;400;700&
+    family=Bitter:wght@300;400;700&
+    family=Cabin:wght@300;400;700&
+    family=Cardo:wght@400;700&
+    family=Mada:wght@300;400;700&
+    family=Cairo:wght@300;400;700&
+    family=Tajawal:wght@300;400;700&
+    family=El+Messiri:wght@300;400;700&
+    family=Amiri:wght@400;700&
+    family=Scheherazade+New:wght@400;700&
+    family=Heebo:wght@300;400;700&
+    family=Varela+Round&
+    family=Zilla+Slab:wght@300;400;700&
+    family=Nunito+Sans:wght@300;400;700&
+    family=Spectral:wght@300;400;700&
+    family=Josefin+Sans:wght@300;400;700&
+    family=Inconsolata:wght@400;700&
+    family=Rokkitt:wght@300;400;700&
+    family=Anton&
+    family=Play:wght@400;700&
+    family=Oxygen:wght@300;400;700&
+    family=Koulen&
+    display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- شريط علوي -->
+  <header class="topbar">
+    <div class="brand">محرر الصور - نهائي</div>
+    <div class="top-actions">
+      <button class="icon-btn" id="btn-new" title="مشروع جديد">➕</button>
+      <button class="icon-btn" id="btn-save" title="حفظ المشروع">💾</button>
+      <button class="icon-btn" id="btn-share" title="مشاركة (نسخ JSON)">🔗</button>
+      <button class="icon-btn" id="btn-undo" title="تراجع">↶</button>
+      <button class="icon-btn" id="btn-grid" title="تبديل الشبكة">▦</button>
+    </div>
+  </header>
+
+  <!-- المساحة الرئيسية -->
+  <main class="container">
+    <section class="preview-wrap">
+      <div class="preview" id="preview">
+        <div class="canvas" id="canvas"></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- شريط الأدوات السفلي -->
+  <nav class="bottom-toolbar" aria-label="شريط الأدوات">
+    <div class="tool-scroll" id="tool-scroll">
+      <div class="tool-item" id="tool-projects">📁<div>المشاريع</div></div>
+      <div class="tool-item" id="tool-text">🅰️<div>نص</div></div>
+      <div class="tool-item" id="tool-image">🖼️<div>صورة</div></div>
+      <div class="tool-item" id="tool-gradient">🎨<div>تدرج</div></div>
+      <div class="tool-item" id="tool-fonts">🔤<div>الخطوط</div></div>
+      <div class="tool-item" id="tool-colors">🌈<div>ألوان</div></div>
+      <!-- عناصر إضافية مرئية -->
+      <div class="tool-item">🧩<div>طبقات</div></div>
+      <div class="tool-item">🔍<div>تكبير</div></div>
+    </div>
+  </nav>
+
+  <!-- لوحة المشاريع -->
+  <div class="panel" id="projects-panel">
+    <header><strong>المشاريع</strong><button class="close" data-close="projects-panel">✖</button></header>
+    <div class="panel-body">
+      <div class="row">
+        <input id="project-name" placeholder="اسم المشروع" />
+        <button id="save-project-btn" class="btn primary">حفظ</button>
+      </div>
+      <div id="project-list"></div>
+    </div>
+  </div>
+
+  <!-- لوحة النص -->
+  <div class="panel" id="text-panel">
+    <header><strong>أدوات النص</strong><button class="close" data-close="text-panel">✖</button></header>
+    <div class="panel-body">
+      <div class="row">
+        <button id="add-text-btn" class="btn primary">أضف نص</button>
+        <label class="btn secondary">استيراد خط<input type="file" id="font-file" accept=".ttf,.otf,.woff,.woff2" style="display:none"></label>
+      </div>
+      <div class="row">
+        <label>الخط:</label>
+        <select id="font-select"></select>
+      </div>
+      <div class="row">
+        <label>حجم:</label>
+        <input type="range" id="text-size" min="10" max="220" value="36"><span id="text-size-val">36</span>px
+      </div>
+      <div class="row">
+        <label>تدوير:</label>
+        <input type="range" id="text-rotate" min="0" max="360" value="0"><span id="text-rotate-val">0</span>°
+      </div>
+
+      <div class="section-title">ألوان افتراضية (50)</div>
+      <div id="text-color-grid" class="color-grid"></div>
+
+      <div class="section-title">تدرجات النص</div>
+      <div class="row">
+        <button id="open-text-grad" class="btn">اختيار تدرج</button>
+        <input type="color" id="grad-c1" value="#f6d365">
+        <input type="color" id="grad-c2" value="#fda085">
+        <button id="apply-custom-grad" class="btn secondary">تطبيق</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- لوحة الصور -->
+  <div class="panel" id="image-panel">
+    <header><strong>أدوات الصورة</strong><button class="close" data-close="image-panel">✖</button></header>
+    <div class="panel-body">
+      <div class="row">
+        <label class="btn primary">أضف صورة<input id="img-file" type="file" accept="image/*" style="display:none"></label>
+      </div>
+
+      <div class="row">
+        <label>تكبير:</label>
+        <input type="range" id="img-scale" min="10" max="400" value="100"><span id="img-scale-val">100%</span>
+      </div>
+      <div class="row">
+        <label>تدوير:</label>
+        <input type="range" id="img-rotate" min="0" max="360" value="0"><span id="img-rotate-val">0°</span>
+      </div>
+
+      <div class="section-title">تدرجات جاهزة (50)</div>
+      <div id="img-grad-grid" class="color-grid"></div>
+    </div>
+  </div>
+
+  <!-- نافذة اختيار تدرجات للنص -->
+  <div class="panel" id="grad-panel">
+    <header><strong>اختيار التدرج</strong><button class="close" data-close="grad-panel">✖</button></header>
+    <div class="panel-body">
+      <div id="text-grad-list" class="grad-list"></div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
